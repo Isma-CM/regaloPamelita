@@ -242,6 +242,7 @@ function buildLetters(map: Map<string, VoxelData>, startX: number, y: number, z:
         let c = color;
         if (stripeColor !== undefined) {
             // Candy cane pattern: diagonal stripes
+            // This logic ensures the "Red/White" stripe request is honored
             if (Math.abs((cx + dx) + dy) % 2 !== 0) {
                 c = stripeColor;
             }
@@ -315,6 +316,7 @@ export const Generators = {
         buildHeart(map, 0, 14, -6, 0.9);
 
         // 2. Text - Red & White candy cane style
+        // Explicitly using COLORS.BLOSSOM_RED and COLORS.WHITE for the stripes
         buildLetters(map, -13, -2, 2, "TE AMO", COLORS.BLOSSOM_RED, COLORS.WHITE);
         buildLetters(map, -17, -8, 2, "PAMELITA", COLORS.BLOSSOM_RED, COLORS.WHITE);
 

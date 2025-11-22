@@ -209,7 +209,8 @@ const App: React.FC = () => {
               
               const response = await ai.models.generateContent({
                   model,
-                  contents: [
+                  contents: {
+                    parts: [
                       {
                         inlineData: {
                             mimeType: file.type,
@@ -242,7 +243,8 @@ const App: React.FC = () => {
                             - LIMITE: 600 vóxeles para asegurar que la respuesta esté completa y no cortada.
                           `
                       }
-                  ],
+                    ]
+                  },
                   config: {
                     responseMimeType: "application/json",
                     responseSchema: {

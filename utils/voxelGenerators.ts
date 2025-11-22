@@ -236,9 +236,18 @@ function buildHeart(map: Map<string, VoxelData>, cx: number, cy: number, cz: num
     }
 }
 
-function buildLetters(map: Map<string, VoxelData>, startX: number, y: number, z: number, text: string, color: number) {
+function buildLetters(map: Map<string, VoxelData>, startX: number, y: number, z: number, text: string, color: number, stripeColor?: number) {
     let cx = startX;
-    const add = (dx: number, dy: number) => setBlock(map, cx + dx, y + dy, z, color);
+    const add = (dx: number, dy: number) => {
+        let c = color;
+        if (stripeColor !== undefined) {
+            // Candy cane pattern: diagonal stripes
+            if (Math.abs((cx + dx) + dy) % 2 !== 0) {
+                c = stripeColor;
+            }
+        }
+        setBlock(map, cx + dx, y + dy, z, c);
+    };
 
     for (const char of text) {
         switch (char) {
@@ -305,9 +314,9 @@ export const Generators = {
         // 1. Big Heart Background
         buildHeart(map, 0, 14, -6, 0.9);
 
-        // 2. Text
-        buildLetters(map, -13, -2, 2, "TE AMO", COLORS.WHITE);
-        buildLetters(map, -17, -8, 2, "PAMELITA", COLORS.WHITE);
+        // 2. Text - Red & White candy cane style
+        buildLetters(map, -13, -2, 2, "TE AMO", COLORS.BLOSSOM_RED, COLORS.WHITE);
+        buildLetters(map, -17, -8, 2, "PAMELITA", COLORS.BLOSSOM_RED, COLORS.WHITE);
 
         // 3. The Girls
         // Blossom is back in the center!
